@@ -43,20 +43,22 @@
 
                 <div class="mb-3">
                   <b>{{ form.name.label(class="form-label") }}</b>
-                  {% if name_changes %}
-                    {{ form.name(class="form-control", value=name) }}
+                  {% if name_changes or Configs.allow_name_changes %}
+                      {{ form.name(class="form-control", value=name) }}
+                      <small class="form-text text-muted">{% trans %}Your username used on the scoreboard.{% endtrans %}</small>
                   {% else %}
-                    {{ form.name(class="form-control", value=name, disabled=True) }}
+                      {{ form.name(class="form-control", value=name, readonly=True, style="cursor: not-allowed; opacity: 0.7;") }}
+                      <small class="form-text text-muted">{% trans %}Username changes are currently disabled.{% endtrans %}</small>
                   {% endif %}
                 </div>
 
                 <div class="mb-3">
-                  <b>{{ form.email.label(class="form-label") }}</b>
-                  {% if email_changes %}
-                    {{ form.email(class="form-control", value=email) }}
-                  {% else %}
-                    {{ form.email(class="form-control", value=email, disabled=True) }}
-                  {% endif %}
+                    <b>{{ form.email.label(class="form-label") }}</b>
+                    {% if email_changes or Configs.allow_email_changes %}
+                        {{ form.email(class="form-control", value=email) }}
+                    {% else %}
+                        {{ form.email(class="form-control", value=email, readonly=True, style="cursor: not-allowed; opacity: 0.7;") }}
+                    {% endif %}
                 </div>
 
                 <div class="mb-3">
